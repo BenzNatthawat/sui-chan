@@ -16,9 +16,10 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('user_name')->unique()->nullable();
-            $table->string('role');
+            $table->enum('role', ['master', 'header', 'admin']);
             $table->string('password');
             $table->enum('status', ['0', '1']);
+            $table->integer('user_create_id')->unsigned()->nullable();
             $table->integer('account_id')->unsigned();
             $table->foreign('account_id')->references('id')->on('accounts')->nullable();
             $table->rememberToken();

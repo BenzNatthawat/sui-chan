@@ -15,17 +15,19 @@ class CreateAccountsTable extends Migration
     {
         Schema::create('accounts', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('cid');
-            $table->string('dob');
+            $table->string('cid')->nullable();
+            $table->string('dob')->nullable();
             $table->string('name');
             $table->string('surname');
             $table->string('tel');
-            $table->string('party_name');
-            $table->string('province');
-            $table->string('amphoe');
-            $table->string('district');
+            $table->string('party_name')->nullable();
+            $table->string('province')->nullable();
+            $table->string('amphoe')->nullable();
+            $table->string('district')->nullable();
+            $table->string('postal_number')->nullable();
             $table->string('comment')->nullable();
-            $table->text('image');
+            $table->text('image_cid')->nullable();
+            $table->text('image_profile')->nullable();
             $table->timestamps();
         });
     }
