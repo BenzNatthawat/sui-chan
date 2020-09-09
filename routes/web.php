@@ -16,5 +16,7 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 Route::resource('master', 'Master\MasterController');
 Route::resource('master/manager_header', 'Master\ManagerHeaderController');
-Route::resource('admin', 'Admin\AdminController');
 Route::resource('header', 'Header\HeaderController');
+Route::resource('header/manager_admin', 'Header\ManagerAdminController');
+Route::resource('admin', 'Admin\AdminController');
+Route::resource('profile', 'ProfileController');

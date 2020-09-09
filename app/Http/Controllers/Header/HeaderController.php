@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Header;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Auth;
+use App\Models\Account;
 
 class HeaderController extends Controller
 {
@@ -23,9 +25,17 @@ class HeaderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $NUM_PAGE = 5;
+        $page = $request->input('page');
+        $page = ($page != null)?$page:1;
+        $auth = Auth::user()->id;
+        $accounts = Account::where('user_create_id', $auth)->orderBy('updated_at','desc')
+                                                      ->paginate($NUM_PAGE);  
+        return view('header/home')->with('accounts',$accounts)
+                                  ->with('page',$page)
+                                  ->with('NUM_PAGE',$NUM_PAGE);
     }
 
     /**
@@ -57,7 +67,12 @@ class HeaderController extends Controller
      */
     public function show($id)
     {
-        //
+        $account = Account::findOrFail($id);
+        if(isset($account)) {
+          return view('header.show_account')->with('account', $account);
+        } else {
+          return redirect()->back();
+        }
     }
 
     /**
@@ -68,7 +83,13 @@ class HeaderController extends Controller
      */
     public function edit($id)
     {
-        //
+        $auth = Auth::user();
+        $account = Account::where('id', $id)->where('user_create_id', $auth->id)->first();
+        if(isset($account)) {
+          return view('header.edit_account')->with('account', $account);
+        } else {
+          return redirect()->back();
+        }
     }
 
     /**

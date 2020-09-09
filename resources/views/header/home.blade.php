@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
-        @include('layouts.menu_master')
+        @include('layouts.menu_header')
         <div class="row">
             <div class="col-md-12 ">
                 <div class="panel panel-info">
@@ -11,7 +11,7 @@
                                 <h3 class="panel-title">ตารางรายชื่อสมาชิก</h3>
                             </div>
                             <div class="col col-xs-6 text-right">
-                                <a href="{{ route('manager_header.create') }}"
+                                <a href="{{ route('manager_admin.create') }}"
                                     class="btn btn-sm btn-primary btn-create">เพิ่มสมาชิก</a>
                             </div>
                         </div>
@@ -39,9 +39,9 @@
                                             <td>{{ $account->user ? $account->user->status : '-' }}</td>
                                             <td>{{ $account->comment }}</td>
                                             <td>
-                                                <a href="{{ url('master') }}/{{ $account->id }}" class="btn btn-info btn-sm"><i
+                                                <a href="{{ url('header') }}/{{ $account->id }}" class="btn btn-info btn-sm"><i
                                                         class="fa fa-eye"></i>แสดง</a>
-                                                <a href="{{ url('master') }}/{{ $account->id }}/edit"
+                                                <a href="{{ url('header') }}/{{ $account->id }}/edit"
                                                     class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i>แก้ไข</a>
                                             </td>
                                         </tr>

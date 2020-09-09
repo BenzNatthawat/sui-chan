@@ -1,27 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Master;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Models\User;
-use App\Models\Account;
 use Auth;
-use Illuminate\Support\Facades\Hash;
 
-class ManagerHeaderController extends Controller
+class ProfileController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-        $this->middleware('role:master');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -29,7 +14,8 @@ class ManagerHeaderController extends Controller
      */
     public function index()
     {
-        //
+        $auth = Auth::user();
+        return view('profile.index')->with('auth', $auth);
     }
 
     /**
@@ -39,7 +25,7 @@ class ManagerHeaderController extends Controller
      */
     public function create()
     {
-      return view('master/create_header');
+        //
     }
 
     /**
@@ -50,18 +36,7 @@ class ManagerHeaderController extends Controller
      */
     public function store(Request $request)
     {
-        $auth = Auth::user();
-        $request['user_create_id'] = $auth->id;
-        $account = Account::create(request()->all());
-        User::create([            
-          'user_name' => $request['user_name'],
-          'password' => Hash::make($request['password']),
-          'role' => 'header',
-          'status' => '1',
-          'user_create_id' => $auth->id,
-          'account_id' => $account->id
-        ]);
-        return redirect()->route('master.index');
+        //
     }
 
     /**

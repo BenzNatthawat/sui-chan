@@ -24,9 +24,10 @@ class CreateAccountsTable extends Migration
             $table->string('province')->nullable();
             $table->string('amphoe')->nullable();
             $table->string('district')->nullable();
-            $table->string('postal_number')->nullable();
+            $table->string('zipcode')->nullable();
             $table->string('comment')->nullable();
             $table->text('image_cid')->nullable();
+            $table->integer('user_create_id')->unsigned()->nullable();
             $table->text('image_profile')->nullable();
             $table->timestamps();
         });

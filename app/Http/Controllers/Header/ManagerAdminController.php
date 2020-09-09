@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Master;
+namespace App\Http\Controllers\Header;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -9,8 +9,9 @@ use App\Models\Account;
 use Auth;
 use Illuminate\Support\Facades\Hash;
 
-class ManagerHeaderController extends Controller
+class ManagerAdminController extends Controller
 {
+
     /**
      * Create a new controller instance.
      *
@@ -19,7 +20,7 @@ class ManagerHeaderController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('role:master');
+        $this->middleware('role:header');
     }
 
     /**
@@ -39,7 +40,7 @@ class ManagerHeaderController extends Controller
      */
     public function create()
     {
-      return view('master/create_header');
+        return view('header/create_admin');
     }
 
     /**
@@ -56,12 +57,12 @@ class ManagerHeaderController extends Controller
         User::create([            
           'user_name' => $request['user_name'],
           'password' => Hash::make($request['password']),
-          'role' => 'header',
+          'role' => 'admin',
           'status' => '1',
           'user_create_id' => $auth->id,
           'account_id' => $account->id
         ]);
-        return redirect()->route('master.index');
+        return redirect()->route('header.index');
     }
 
     /**

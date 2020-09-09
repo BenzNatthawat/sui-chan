@@ -19,9 +19,15 @@ class Account extends Model
      * @var array
      */
     protected $fillable = [
-      'cid', 'dob', 'name', 'surname', 'tel', 'party_name', 'province',
-      'amphoe', 'district', 'comment', 'image_profile', 'image_cid'
+      'id', 'cid', 'dob', 'name', 'surname', 'tel', 'party_name', 'province',
+      'amphoe', 'district', 'comment', 'image_profile', 'image_cid', 'zipcode',
+      'user_create_id'
     ];
+
+    public function user()
+    {
+        return $this->hasOne('App\Models\User');
+    }
 
     /**
      * The primary key associated with the table.
@@ -30,8 +36,5 @@ class Account extends Model
      */
     protected $primaryKey = 'id';
 
-    public function user()
-    {
-        return $this->belongsTo('App\Models\User');
-    }
+
 }

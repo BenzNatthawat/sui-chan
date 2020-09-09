@@ -3,46 +3,49 @@
     <div class="container">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route('master.index') }}">หน้าแรก</a></li>
-            <li class="breadcrumb-item active">สร้างผู้ดูแลระบบตำบล</li>
+            <li class="breadcrumb-item active">แก้ไขข้อมูลสมาชิก</li>
         </ol>
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('สร้างผู้ดูแลระบบตำบล') }}</div>
+                    <div class="card-header">{{ __('แก้ไขข้อมูลสมาชิก') }}</div>
 
                     <div class="card-body">
                         <form method="POST" action="{{ route('manager_header.store') }}">
                             @csrf
+                            @isset($account->user)
+                                <div class="form-group row">
+                                    <div class="col-md-6">
+                                        <label for="user_name">{{ __('ชื่อผู้ใช้งาน') }}</label>
 
-                            <div class="form-group row">
-                                <div class="col-md-6">
-                                    <label for="user_name">{{ __('ชื่อผู้ใช้งาน') }}</label>
+                                        <input id="user_name" type="text"
+                                            class="form-control{{ $errors->has('user_name') ? ' is-invalid' : '' }}"
+                                            name="user_name"
+                                            value="{{ old('user_name') ? old('user_name') : $account->user->user_name }}"
+                                            required autofocus>
 
-                                    <input id="user_name" type="text"
-                                        class="form-control{{ $errors->has('user_name') ? ' is-invalid' : '' }}"
-                                        name="user_name" value="{{ old('user_name') }}" required autofocus>
+                                        @if ($errors->has('user_name'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('user_name') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="password">{{ __('รหัสผ่าน') }}</label>
 
-                                    @if ($errors->has('user_name'))
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('user_name') }}</strong>
-                                        </span>
-                                    @endif
+                                        <input id="password" type="password" autocomplete="off"
+                                            class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
+                                            name="password" required>
+
+                                        @if ($errors->has('password'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('password') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
                                 </div>
+                            @endisset
 
-                                <div class="col-md-6">
-                                    <label for="password">{{ __('รหัสผ่าน') }}</label>
-
-                                    <input id="password" type="password" autocomplete="off"
-                                        class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
-                                        name="password" required>
-
-                                    @if ($errors->has('password'))
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('password') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
 
                             <div class="form-group row">
                                 <div class="col-md-6">
@@ -50,7 +53,7 @@
 
                                     <input id="name" type="text"
                                         class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name"
-                                        required>
+                                        value="{{ old('name') ? old('name') : $account->name }}" required>
 
                                     @if ($errors->has('name'))
                                         <span class="invalid-feedback" role="alert">
@@ -64,7 +67,8 @@
 
                                     <input id="surname" type="text"
                                         class="form-control{{ $errors->has('surname') ? ' is-invalid' : '' }}"
-                                        name="surname" required>
+                                        name="surname" value="{{ old('surname') ? old('surname') : $account->surname }}"
+                                        required>
 
                                     @if ($errors->has('surname'))
                                         <span class="invalid-feedback" role="alert">
@@ -80,7 +84,7 @@
 
                                     <input id="dob" type="text"
                                         class="form-control{{ $errors->has('dob') ? ' is-invalid' : '' }}" name="dob"
-                                        required>
+                                        value="{{ old('dob') ? old('dob') : $account->dob }}" required>
 
                                     @if ($errors->has('dob'))
                                         <span class="invalid-feedback" role="alert">
@@ -94,7 +98,7 @@
 
                                     <input id="tel" type="text"
                                         class="form-control{{ $errors->has('tel') ? ' is-invalid' : '' }}" name="tel"
-                                        required>
+                                        value="{{ old('tel') ? old('tel') : $account->tel }}" required>
 
                                     @if ($errors->has('tel'))
                                         <span class="invalid-feedback" role="alert">
@@ -110,7 +114,8 @@
 
                                     <input id="district" type="text"
                                         class="form-control{{ $errors->has('district') ? ' is-invalid' : '' }}"
-                                        name="district" required>
+                                        name="district" value="{{ old('district') ? old('district') : $account->district }}"
+                                        required>
 
                                     @if ($errors->has('district'))
                                         <span class="invalid-feedback" role="alert">
@@ -124,7 +129,7 @@
 
                                     <input id="amphoe" type="text"
                                         class="form-control{{ $errors->has('amphoe') ? ' is-invalid' : '' }}" name="amphoe"
-                                        required>
+                                        value="{{ old('amphoe') ? old('amphoe') : $account->amphoe }}" required>
 
                                     @if ($errors->has('amphoe'))
                                         <span class="invalid-feedback" role="alert">
@@ -140,7 +145,8 @@
 
                                     <input id="province" type="text"
                                         class="form-control{{ $errors->has('province') ? ' is-invalid' : '' }}"
-                                        name="province" required>
+                                        name="province" value="{{ old('province') ? old('province') : $account->province }}"
+                                        required>
 
                                     @if ($errors->has('province'))
                                         <span class="invalid-feedback" role="alert">
@@ -153,12 +159,13 @@
                                     <label for="zipcode">{{ __('เลขไปรษณีย์') }}</label>
 
                                     <input id="zipcode" type="text"
-                                        class="form-control{{ $errors->has('postal_number') ? ' is-invalid' : '' }}"
-                                        name="postal_number" required>
+                                        class="form-control{{ $errors->has('zipcode') ? ' is-invalid' : '' }}"
+                                        name="zipcode" value="{{ old('zipcode') ? old('zipcode') : $account->zipcode }}"
+                                        required>
 
-                                    @if ($errors->has('postal_number'))
+                                    @if ($errors->has('zipcode'))
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('postal_number') }}</strong>
+                                            <strong>{{ $errors->first('zipcode') }}</strong>
                                         </span>
                                     @endif
                                 </div>

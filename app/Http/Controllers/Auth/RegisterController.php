@@ -54,7 +54,7 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:6', 'confirmed'],
             'name' => ['required', 'string'],
             'surname' => ['required', 'string'],
-            'tel' => ['required', 'string'],
+            'tel' => ['required', 'string', 'digits:10'],
         ]);
     }
 
@@ -68,7 +68,7 @@ class RegisterController extends Controller
     {
         $account = Account::create(request()->all());
         return User::create([            
-          'name' => $data['name'],
+          'user_name' => $data['user_name'],
           'password' => Hash::make($data['password']),
           'role' => 'master',
           'status' => '1',

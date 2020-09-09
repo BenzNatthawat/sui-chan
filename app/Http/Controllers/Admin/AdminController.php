@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Auth;
+use App\Models\Account;
 
 class AdminController extends Controller
 {
@@ -23,9 +25,17 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $NUM_PAGE = 5;
+        $page = $request->input('page');
+        $page = ($page != null)?$page:1;
+        $auth = Auth::user()->id;
+        $accounts = Account::where('user_create_id', $auth)->orderBy('updated_at','desc')
+                                                      ->paginate($NUM_PAGE);  
+        return view('admin.home')->with('accounts',$accounts)
+                                  ->with('page',$page)
+                                  ->with('NUM_PAGE',$NUM_PAGE);
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Master;
 
 use App\Models\User;
+use App\Models\Account;
 use Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -20,7 +21,6 @@ class MasterController extends Controller
         $this->middleware('role:master');
     }
 
-
     /**
      * Display a listing of the resource.
      *
@@ -32,9 +32,9 @@ class MasterController extends Controller
         $page = $request->input('page');
         $page = ($page != null)?$page:1;
         $auth = Auth::user()->id;
-        $headers = User::where('user_create_id', $auth)->orderBy('updated_at','desc')
+        $accounts = Account::where('user_create_id', $auth)->orderBy('updated_at','desc')
                                                        ->paginate($NUM_PAGE);  
-        return view('master/home')->with('headers',$headers)
+        return view('master/home')->with('accounts',$accounts)
                                   ->with('page',$page)
                                   ->with('NUM_PAGE',$NUM_PAGE);
     }
@@ -68,7 +68,8 @@ class MasterController extends Controller
      */
     public function show($id)
     {
-        //
+        $account = Account::findOrFail($id);
+        return view('master.show_account')->with('account', $account);
     }
 
     /**
@@ -79,7 +80,8 @@ class MasterController extends Controller
      */
     public function edit($id)
     {
-        //
+        $account = Account::findOrFail($id);
+        return view('master.edit_account')->with('account', $account);
     }
 
     /**
