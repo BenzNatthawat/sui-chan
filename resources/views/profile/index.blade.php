@@ -11,15 +11,26 @@
                     <div class="card-header">{{ __('แก้ไขข้อมูลส่วนตัว') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('manager_header.store') }}">
+                        @if (session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
+                        @if (session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+                        <form method="POST" action="{{ route('profile.update', ['id' => Auth::user()->id]) }}">
                             @csrf
+                            @method('PUT')
                             <div class="form-group row">
                                 <div class="col-md-6">
                                     <label for="name">{{ __('ชื่อ') }}</label>
 
                                     <input id="name" type="text"
                                         class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name"
-                                        value="{{$auth->account->name}}" required>
+                                        value="{{ $auth->account->name }}" required>
 
                                     @if ($errors->has('name'))
                                         <span class="invalid-feedback" role="alert">
@@ -33,7 +44,7 @@
 
                                     <input id="surname" type="text"
                                         class="form-control{{ $errors->has('surname') ? ' is-invalid' : '' }}"
-                                        value="{{$auth->account->surname}}" name="surname" required>
+                                        value="{{ $auth->account->surname }}" name="surname" required>
 
                                     @if ($errors->has('surname'))
                                         <span class="invalid-feedback" role="alert">
@@ -49,7 +60,7 @@
 
                                     <input id="dob" type="text"
                                         class="form-control{{ $errors->has('dob') ? ' is-invalid' : '' }}" name="dob"
-                                        value="{{$auth->account->dob}}" required>
+                                        value="{{ $auth->account->dob }}" required>
 
                                     @if ($errors->has('dob'))
                                         <span class="invalid-feedback" role="alert">
@@ -63,7 +74,7 @@
 
                                     <input id="tel" type="text"
                                         class="form-control{{ $errors->has('tel') ? ' is-invalid' : '' }}" name="tel"
-                                        value="{{$auth->account->tel}}" required>
+                                        value="{{ $auth->account->tel }}" required>
 
                                     @if ($errors->has('tel'))
                                         <span class="invalid-feedback" role="alert">
@@ -79,7 +90,7 @@
 
                                     <input id="district" type="text"
                                         class="form-control{{ $errors->has('district') ? ' is-invalid' : '' }}"
-                                        value="{{$auth->account->district}}" name="district" required>
+                                        value="{{ $auth->account->district }}" name="district" required>
 
                                     @if ($errors->has('district'))
                                         <span class="invalid-feedback" role="alert">
@@ -93,7 +104,7 @@
 
                                     <input id="amphoe" type="text"
                                         class="form-control{{ $errors->has('amphoe') ? ' is-invalid' : '' }}" name="amphoe"
-                                        value="{{$auth->account->amphoe}}" required>
+                                        value="{{ $auth->account->amphoe }}" required>
 
                                     @if ($errors->has('amphoe'))
                                         <span class="invalid-feedback" role="alert">
@@ -109,7 +120,7 @@
 
                                     <input id="province" type="text"
                                         class="form-control{{ $errors->has('province') ? ' is-invalid' : '' }}"
-                                        value="{{$auth->account->province}}" name="province" required>
+                                        value="{{ $auth->account->province }}" name="province" required>
 
                                     @if ($errors->has('province'))
                                         <span class="invalid-feedback" role="alert">
@@ -122,21 +133,21 @@
                                     <label for="zipcode">{{ __('เลขไปรษณีย์') }}</label>
 
                                     <input id="zipcode" type="text"
-                                        class="form-control{{ $errors->has('postal_number') ? ' is-invalid' : '' }}"
-                                        value="{{$auth->account->postal_number}}" name="postal_number" required>
+                                        class="form-control{{ $errors->has('zipcode') ? ' is-invalid' : '' }}"
+                                        value="{{ $auth->account->zipcode }}" name="zipcode" required>
 
-                                    @if ($errors->has('postal_number'))
+                                    @if ($errors->has('zipcode'))
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('postal_number') }}</strong>
+                                            <strong>{{ $errors->first('zipcode') }}</strong>
                                         </span>
                                     @endif
                                 </div>
                             </div>
 
                             <div class="form-group row mb-0">
-                                <div class="col-md-6 offset-md-4">
+                                <div class="col-md-12 text-center">
                                     <button type="submit" class="btn btn-primary">
-                                        {{ __('สร้างผู้ดูแลระบบตำบล') }}
+                                        {{ __('บันทึกข้อมูล') }}
                                     </button>
                                 </div>
                             </div>

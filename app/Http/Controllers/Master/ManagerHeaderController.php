@@ -61,7 +61,7 @@ class ManagerHeaderController extends Controller
           'user_create_id' => $auth->id,
           'account_id' => $account->id
         ]);
-        return redirect()->route('master.index');
+        return redirect()->route('master.index')->with("success","เพิ่มผู้ดูแลระดับตำบลสำเร็จ");
     }
 
     /**

@@ -1,8 +1,13 @@
 @extends('layouts.app')
+
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('/js/jquery.Thailand.js/dist/jquery.Thailand.min.css') }}">
+@endsection
+
 @section('content')
     <div class="container">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ route('master.index') }}">หน้าแรก</a></li>
+            <li class="breadcrumb-item"><a href="{{ url('master.index') }}">หน้าแรก</a></li>
             <li class="breadcrumb-item active">สร้างผู้ดูแลระบบตำบล</li>
         </ol>
         <div class="row justify-content-center">
@@ -11,7 +16,8 @@
                     <div class="card-header">{{ __('สร้างผู้ดูแลระบบตำบล') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('manager_header.store') }}">
+                        <form action="{{ route('manager_header.store') }}" method="POST" enctype="multipart/form-data"
+                            id="address" class="demo" autocomplete="off">
                             @csrf
 
                             <div class="form-group row">
@@ -172,44 +178,32 @@
                                 </div>
                             </div>
                         </form>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-@endsection
-
-@section('styles')
-    <link rel="stylesheet" href="{{ asset('/js/jquery.Thailand.js/dist/jquery.Thailand.min.css') }}">
 @endsection
 
 @section('scripts')
-    <script type="text/javascript" src="{{ asset('https://code.jquery.com/jquery-3.2.1.min.js') }}"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.20/js/uikit.min.js">
+    <script type="text/javascript" src="{{ asset('https://code.jquery.com/jquery-3.2.1.min.js') }}">
     </script>
-    <script type="text/javascript" src="{{ asset('/js/jquery.Thailand.js/dependencies/zip.js/zip.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('/js/jquery.Thailand.js/dependencies/JQL.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('/js/jquery.Thailand.js/dependencies/typeahead.bundle.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/js/jquery.Thailand.js/dependencies/JQL.min.js') }}">
+    </script>
+    <script type="text/javascript" src="{{ asset('/js/jquery.Thailand.js/dependencies/typeahead.bundle.js') }}">
+    </script>
     <script type="text/javascript" src="{{ asset('/js/jquery.Thailand.js/dist/jquery.Thailand.min.js') }}"></script>
 @endsection
 
 @section('scripts_footer')
-    <script>
+    <script type="text/javascript">
         $.Thailand({
-            database: "{{ asset('/js/jquery.Thailand.js/database/db.json ') }}",
-            $district: $('#district'),
-            $amphoe: $('#amphoe'),
-            $province: $('#province'),
-            $zipcode: $('#zipcode'),
-            onDataFill: function(data) {
-                console.info('Data Filled', data);
-            },
-            onLoad: function() {
-                console.info('Autocomplete is ready!');
-                $('#loader, .demo').toggle();
-            }
+            database: "{{ asset('/js/jquery.Thailand.js/database/db.json') }}",
+            $district: $('#address [name="district"]'),
+            $amphoe: $('#address [name="amphoe"]'),
+            $province: $('#address [name="province"]'),
+            $zipcode: $('#address [name="zipcode"]'),
         });
-
     </script>
 @endsection

@@ -20,3 +20,4 @@ Route::resource('header', 'Header\HeaderController');
 Route::resource('header/manager_admin', 'Header\ManagerAdminController');
 Route::resource('admin', 'Admin\AdminController');
 Route::resource('profile', 'ProfileController');
+Route::resource('change_password', 'Auth\ChangePasswordController');

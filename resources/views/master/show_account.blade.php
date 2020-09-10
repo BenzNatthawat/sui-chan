@@ -18,9 +18,12 @@
                     <!--/.panel-heading-->
                     <div class="panel-body">
                         <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-list">
+                            <table class="table table-hover">
                                 <tbody>
                                     @isset($account->user)
+                                        <tr>
+                                            <td colspan="2" class="bg-secondary text-center"><b>ข้อมูลผู้ใช้งาน</b></td>
+                                        </tr>
                                         <tr>
                                             <td>ชื่อ</td>
                                             <td>{{ $account->user->user_name }}</td>
@@ -35,7 +38,7 @@
                                         </tr>
                                     @endisset
                                     <tr>
-                                        <td colspan="2">ข้อมูลส่วนตัว</td>
+                                        <td colspan="2" class="bg-secondary text-center"><b>ข้อมูลส่วนตัว</b></td>
                                     </tr>
                                     <tr>
                                         <td>เลขบัตรประชาชน</td>
@@ -46,7 +49,7 @@
                                         <td>{{ $account->name }} {{ $account->surname }}</td>
                                     </tr>
                                     <tr>
-                                        <td colspan="2">ที่อยู่</td>
+                                        <td colspan="2" class="bg-secondary text-center"><b>ที่อยู่</b></td>
                                     </tr>
                                     <tr>
                                         <td>ตำบล</td>
@@ -65,7 +68,7 @@
                                         <td>{{ $account->zipcode }}</td>
                                     </tr>
                                     <tr>
-                                        <td></td>
+                                        <td>หมายเหตุ</td>
                                         <td>{{ $account->comment }}</td>
                                     </tr>
                                 </tbody>

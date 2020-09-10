@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use Auth;
-use App\Models\Account;
 
-class ProfileController extends Controller
+class ChangePasswordController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +16,7 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $auth = Auth::user();
-        return view('profile.index')->with('auth', $auth);
+        return view('auth/passwords/change_password');
     }
 
     /**
@@ -71,9 +71,23 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = Auth::user();
-        Account::where('id', $user->account->id)->update($request->except(['_token', '_method']));
-        return redirect()->back()->with("success","เปลี่ยนข้อมูลส่วนตัวสำเร็จ");
+      if (!(Hash::check($request->get('current-password'), Auth::user()->password))) {
+          return redirect()->back()->with("error","รหัสผ่านปัจจุบันของคุณไม่ตรงกับรหัสผ่านที่คุณระบุ กรุณาลองอีกครั้ง");
+      }
+
+      if(strcmp($request->get('current-password'), $request->get('new-password')) == 0){
+          return redirect()->back()->with("error","รหัสผ่านใหม่ต้องไม่เหมือนกับรหัสผ่านปัจจุบันของคุณ โปรดเลือกรหัสผ่านอื่น");
+      }
+      $validatedData = $request->validate([
+          'current-password' => 'required',
+          'new-password' => 'required|string|min:6|confirmed',
+      ]);
+      //Change Password
+      $user = Auth::user();
+      $user->password = Hash::make($request->get('password'));
+      $user->save();
+
+      return redirect()->back()->with("success","เปลี่ยนรหัสผ่านสำเร็จ!");
     }
 
     /**

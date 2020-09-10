@@ -5,6 +5,16 @@
         <div class="row">
             <div class="col-md-12 ">
                 <div class="panel panel-info">
+                    @if (session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col col-xs-6">

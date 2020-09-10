@@ -8,22 +8,25 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'sui-chan') }}</title>
+    <title>ซุยจัน</title>
 
     <!-- META -->
     @include('layouts.meta')
 
     <!-- Scripts -->
     @yield('scripts')
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script>
+        var oldVersion = jQuery.noConflict();
+    </script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
     <!-- Styles -->
-    @yield('styles')
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @yield('styles')
 </head>
 
 <body>
@@ -31,7 +34,7 @@
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    ซุยจัน
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -61,7 +64,13 @@
                             <li class="nav-item text-black-50" style="align-self: center;">
                                 <div style="line-height: 15px;text-align: right;">
                                     <div>ยินดีตอนรับ</div>
-                                    <div>{{ Auth::user()->role }}</div>
+                                    <div>
+                                        @switch(Auth::user()->role)
+                                            @case('master') ผู้ดูแลระดับอำเภอ @break
+                                            @case('header') ผู้ดูแลระดับตำบล @break
+                                            @default ผู้ดูแลระดับหมู่บ้าน
+                                        @endswitch
+                                    </div>
                                 </div>
                             </li>
                             <li class="nav-item dropdown">
@@ -74,12 +83,12 @@
                                     <a class="dropdown-item" href="{{ route('profile.index') }}">
                                         แก้ไขโปรไฟล์
                                     </a>
-                                    <a class="dropdown-item" href="{{ url('/master/changePassword') }}">
+                                    <a class="dropdown-item" href="{{ url('/change_password') }}">
                                         เปลี่ยนรหัสผ่าน
                                     </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                                                     document.getElementById('logout-form').submit();">
+                                                                                                                 document.getElementById('logout-form').submit();">
                                         {{ __('ออกจากระบบ') }}
                                     </a>
 
