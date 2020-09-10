@@ -1,4 +1,9 @@
 @extends('layouts.app')
+
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('/js/jquery.Thailand.js/dist/jquery.Thailand.min.css') }}">
+@endsection
+
 @section('content')
     <div class="container">
         <ol class="breadcrumb">
@@ -11,7 +16,8 @@
                     <div class="card-header">{{ __('สร้างผู้ดูแลระบบหมู่บ้าน') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('manager_admin.store') }}">
+                        <form action="{{ route('manager_admin.store') }}" method="POST" enctype="multipart/form-data"
+                            id="address" class="demo" autocomplete="off">
                             @csrf
 
                             <div class="form-group row">
@@ -27,6 +33,7 @@
                                             <strong>{{ $errors->first('user_name') }}</strong>
                                         </span>
                                     @endif
+                                    <span class="invalid-feedback" role="alert" id="error-user_name"></span>
                                 </div>
 
                                 <div class="col-md-6">
@@ -78,9 +85,7 @@
                                 <div class="col-md-6">
                                     <label for="dob">{{ __('ว/ด/ป เกิด') }}</label>
 
-                                    <input id="dob" type="text"
-                                        class="form-control{{ $errors->has('dob') ? ' is-invalid' : '' }}" name="dob"
-                                        value="{{ old('dob') }}" required>
+                                    <input id="dob" name="dob" class="form-control{{ $errors->has('dob') ? ' is-invalid' : '' }}" type="date" value="{{ old('dob') }}" required>
 
                                     @if ($errors->has('dob'))
                                         <span class="invalid-feedback" role="alert">
@@ -180,36 +185,24 @@
 
 @endsection
 
-@section('styles')
-    <link rel="stylesheet" href="{{ asset('/js/jquery.Thailand.js/dist/jquery.Thailand.min.css') }}">
-@endsection
-
 @section('scripts')
-    <script type="text/javascript" src="{{ asset('https://code.jquery.com/jquery-3.2.1.min.js') }}"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.20/js/uikit.min.js">
+    <script type="text/javascript" src="{{ asset('https://code.jquery.com/jquery-3.2.1.min.js') }}">
     </script>
-    <script type="text/javascript" src="{{ asset('/js/jquery.Thailand.js/dependencies/zip.js/zip.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('/js/jquery.Thailand.js/dependencies/JQL.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('/js/jquery.Thailand.js/dependencies/typeahead.bundle.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/js/jquery.Thailand.js/dependencies/JQL.min.js') }}">
+    </script>
+    <script type="text/javascript" src="{{ asset('/js/jquery.Thailand.js/dependencies/typeahead.bundle.js') }}">
+    </script>
     <script type="text/javascript" src="{{ asset('/js/jquery.Thailand.js/dist/jquery.Thailand.min.js') }}"></script>
 @endsection
 
 @section('scripts_footer')
-    <script>
+    <script type="text/javascript">
         $.Thailand({
-            database: "{{ asset('/js/jquery.Thailand.js/database/db.json ') }}",
-            $district: $('#district'),
-            $amphoe: $('#amphoe'),
-            $province: $('#province'),
-            $zipcode: $('#zipcode'),
-            onDataFill: function(data) {
-                console.info('Data Filled', data);
-            },
-            onLoad: function() {
-                console.info('Autocomplete is ready!');
-                $('#loader, .demo').toggle();
-            }
+            database: "{{ asset('/js/jquery.Thailand.js/database/db.json') }}",
+            $district: $('#address [name="district"]'),
+            $amphoe: $('#address [name="amphoe"]'),
+            $province: $('#address [name="province"]'),
+            $zipcode: $('#address [name="zipcode"]'),
         });
-
     </script>
 @endsection

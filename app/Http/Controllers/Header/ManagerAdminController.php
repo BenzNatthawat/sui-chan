@@ -62,7 +62,7 @@ class ManagerAdminController extends Controller
           'user_create_id' => $auth->id,
           'account_id' => $account->id
         ]);
-        return redirect()->route('header.index');
+        return redirect()->route('header.index')->with("success","เพิ่มผู้ดูแลระดับตำบลสำเร็จ");
     }
 
     /**

@@ -33,6 +33,7 @@
                                             <strong>{{ $errors->first('user_name') }}</strong>
                                         </span>
                                     @endif
+                                    <span class="invalid-feedback" role="alert" id="error-user_name"></span>
                                 </div>
 
                                 <div class="col-md-6">
@@ -84,9 +85,7 @@
                                 <div class="col-md-6">
                                     <label for="dob">{{ __('ว/ด/ป เกิด') }}</label>
 
-                                    <input id="dob" type="text"
-                                        class="form-control{{ $errors->has('dob') ? ' is-invalid' : '' }}" name="dob"
-                                        value="{{ old('dob') }}" required>
+                                    <input id="dob" name="dob" class="form-control{{ $errors->has('dob') ? ' is-invalid' : '' }}" type="date" value="2011-08-19" value="{{ old('dob') }}" required>
 
                                     @if ($errors->has('dob'))
                                         <span class="invalid-feedback" role="alert">

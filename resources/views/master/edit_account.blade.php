@@ -82,9 +82,7 @@
                                 <div class="col-md-6">
                                     <label for="dob">{{ __('ว/ด/ป เกิด') }}</label>
 
-                                    <input id="dob" type="text"
-                                        class="form-control{{ $errors->has('dob') ? ' is-invalid' : '' }}" name="dob"
-                                        value="{{ old('dob') ? old('dob') : $account->dob }}" required>
+                                    <input id="dob" name="dob" class="form-control{{ $errors->has('dob') ? ' is-invalid' : '' }}" type="date" value="{{ old('dob') }}" required>
 
                                     @if ($errors->has('dob'))
                                         <span class="invalid-feedback" role="alert">

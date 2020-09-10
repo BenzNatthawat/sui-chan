@@ -22,6 +22,7 @@
                                         <strong>{{ $errors->first('user_name') }}</strong>
                                     </span>
                                 @endif
+                                <span class="invalid-feedback" role="alert" id="error-user_name"></span>
                             </div>
                         </div>
 
@@ -79,7 +80,7 @@
                           <label for="tel" class="col-md-4 col-form-label text-md-right">{{ __('โทรศัพท์') }}</label>
 
                           <div class="col-md-6">
-                              <input id="tel" type="text" class="form-control{{ $errors->has('tel') ? ' is-invalid' : '' }}" name="tel" required>
+                              <input id="tel" type="number" class="form-control{{ $errors->has('tel') ? ' is-invalid' : '' }}" name="tel" required>
 
                               @if ($errors->has('tel'))
                                   <span class="invalid-feedback" role="alert">

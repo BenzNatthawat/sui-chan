@@ -67,7 +67,7 @@ class HeaderController extends Controller
      */
     public function show($id)
     {
-        $account = Account::findOrFail($id);
+        $account = Account::where('id', $id)->where('user_create_id', Auth::user()->id)->first();
         if(isset($account)) {
           return view('header.show_account')->with('account', $account);
         } else {
@@ -83,8 +83,7 @@ class HeaderController extends Controller
      */
     public function edit($id)
     {
-        $auth = Auth::user();
-        $account = Account::where('id', $id)->where('user_create_id', $auth->id)->first();
+        $account = Account::where('id', $id)->where('user_create_id', Auth::user()->id)->first();
         if(isset($account)) {
           return view('header.edit_account')->with('account', $account);
         } else {

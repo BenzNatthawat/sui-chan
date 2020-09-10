@@ -1,51 +1,24 @@
 @extends('layouts.app')
+
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('/js/jquery.Thailand.js/dist/jquery.Thailand.min.css') }}">
+@endsection
+
 @section('content')
     <div class="container">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route('header.index') }}">หน้าแรก</a></li>
-            <li class="breadcrumb-item active">แก้ไขข้อมูลสมาชิก</li>
+            <li class="breadcrumb-item active">เก็บข้อมูลลูกบ้าน</li>
         </ol>
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('แก้ไขข้อมูลสมาชิก') }}</div>
+                    <div class="card-header">{{ __('เก็บข้อมูลลูกบ้าน') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('manager_header.store') }}">
+                        <form action="{{ route('admin.store') }}" method="POST" enctype="multipart/form-data"
+                            id="address" class="demo" autocomplete="off">
                             @csrf
-                            @isset($account->user)
-                                <div class="form-group row">
-                                    <div class="col-md-6">
-                                        <label for="user_name">{{ __('ชื่อผู้ใช้งาน') }}</label>
-
-                                        <input id="user_name" type="text"
-                                            class="form-control{{ $errors->has('user_name') ? ' is-invalid' : '' }}"
-                                            name="user_name"
-                                            value="{{ old('user_name') ? old('user_name') : $account->user->user_name }}"
-                                            required autofocus>
-
-                                        @if ($errors->has('user_name'))
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $errors->first('user_name') }}</strong>
-                                            </span>
-                                        @endif
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="password">{{ __('รหัสผ่าน') }}</label>
-
-                                        <input id="password" type="password" autocomplete="off"
-                                            class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
-                                            name="password" required>
-
-                                        @if ($errors->has('password'))
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $errors->first('password') }}</strong>
-                                            </span>
-                                        @endif
-                                    </div>
-                                </div>
-                            @endisset
-
 
                             <div class="form-group row">
                                 <div class="col-md-6">
@@ -53,7 +26,7 @@
 
                                     <input id="name" type="text"
                                         class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name"
-                                        value="{{ old('name') ? old('name') : $account->name }}" required>
+                                        value="{{ old('name') }}" required>
 
                                     @if ($errors->has('name'))
                                         <span class="invalid-feedback" role="alert">
@@ -67,8 +40,7 @@
 
                                     <input id="surname" type="text"
                                         class="form-control{{ $errors->has('surname') ? ' is-invalid' : '' }}"
-                                        name="surname" value="{{ old('surname') ? old('surname') : $account->surname }}"
-                                        required>
+                                        name="surname" value="{{ old('surname') }}" required>
 
                                     @if ($errors->has('surname'))
                                         <span class="invalid-feedback" role="alert">
@@ -96,7 +68,7 @@
 
                                     <input id="tel" type="text"
                                         class="form-control{{ $errors->has('tel') ? ' is-invalid' : '' }}" name="tel"
-                                        value="{{ old('tel') ? old('tel') : $account->tel }}" required>
+                                        value="{{ old('tel') }}" required>
 
                                     @if ($errors->has('tel'))
                                         <span class="invalid-feedback" role="alert">
@@ -112,8 +84,7 @@
 
                                     <input id="district" type="text"
                                         class="form-control{{ $errors->has('district') ? ' is-invalid' : '' }}"
-                                        name="district" value="{{ old('district') ? old('district') : $account->district }}"
-                                        required>
+                                        name="district" value="{{ old('district') }}" required>
 
                                     @if ($errors->has('district'))
                                         <span class="invalid-feedback" role="alert">
@@ -127,7 +98,7 @@
 
                                     <input id="amphoe" type="text"
                                         class="form-control{{ $errors->has('amphoe') ? ' is-invalid' : '' }}" name="amphoe"
-                                        value="{{ old('amphoe') ? old('amphoe') : $account->amphoe }}" required>
+                                        value="{{ old('amphoe') }}" required>
 
                                     @if ($errors->has('amphoe'))
                                         <span class="invalid-feedback" role="alert">
@@ -143,8 +114,7 @@
 
                                     <input id="province" type="text"
                                         class="form-control{{ $errors->has('province') ? ' is-invalid' : '' }}"
-                                        name="province" value="{{ old('province') ? old('province') : $account->province }}"
-                                        required>
+                                        name="province" value="{{ old('province') }}" required>
 
                                     @if ($errors->has('province'))
                                         <span class="invalid-feedback" role="alert">
@@ -158,8 +128,7 @@
 
                                     <input id="zipcode" type="text"
                                         class="form-control{{ $errors->has('zipcode') ? ' is-invalid' : '' }}"
-                                        name="zipcode" value="{{ old('zipcode') ? old('zipcode') : $account->zipcode }}"
-                                        required>
+                                        name="zipcode" value="{{ old('zipcode') }}" required>
 
                                     @if ($errors->has('zipcode'))
                                         <span class="invalid-feedback" role="alert">
@@ -172,7 +141,7 @@
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
-                                        {{ __('สร้างผู้ดูแลระบบตำบล') }}
+                                        {{ __('บันทึกข้อมูลลูกบ้าน') }}
                                     </button>
                                 </div>
                             </div>
@@ -185,36 +154,24 @@
 
 @endsection
 
-@section('styles')
-    <link rel="stylesheet" href="{{ asset('/js/jquery.Thailand.js/dist/jquery.Thailand.min.css') }}">
-@endsection
-
 @section('scripts')
-    <script type="text/javascript" src="{{ asset('https://code.jquery.com/jquery-3.2.1.min.js') }}"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.20/js/uikit.min.js">
+    <script type="text/javascript" src="{{ asset('https://code.jquery.com/jquery-3.2.1.min.js') }}">
     </script>
-    <script type="text/javascript" src="{{ asset('/js/jquery.Thailand.js/dependencies/zip.js/zip.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('/js/jquery.Thailand.js/dependencies/JQL.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('/js/jquery.Thailand.js/dependencies/typeahead.bundle.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/js/jquery.Thailand.js/dependencies/JQL.min.js') }}">
+    </script>
+    <script type="text/javascript" src="{{ asset('/js/jquery.Thailand.js/dependencies/typeahead.bundle.js') }}">
+    </script>
     <script type="text/javascript" src="{{ asset('/js/jquery.Thailand.js/dist/jquery.Thailand.min.js') }}"></script>
 @endsection
 
 @section('scripts_footer')
-    <script>
+    <script type="text/javascript">
         $.Thailand({
-            database: "{{ asset('/js/jquery.Thailand.js/database/db.json ') }}",
-            $district: $('#district'),
-            $amphoe: $('#amphoe'),
-            $province: $('#province'),
-            $zipcode: $('#zipcode'),
-            onDataFill: function(data) {
-                console.info('Data Filled', data);
-            },
-            onLoad: function() {
-                console.info('Autocomplete is ready!');
-                $('#loader, .demo').toggle();
-            }
+            database: "{{ asset('/js/jquery.Thailand.js/database/db.json') }}",
+            $district: $('#address [name="district"]'),
+            $amphoe: $('#address [name="amphoe"]'),
+            $province: $('#address [name="province"]'),
+            $zipcode: $('#address [name="zipcode"]'),
         });
-
     </script>
 @endsection

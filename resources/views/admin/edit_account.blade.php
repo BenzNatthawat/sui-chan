@@ -3,12 +3,12 @@
     <div class="container">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route('header.index') }}">หน้าแรก</a></li>
-            <li class="breadcrumb-item active">แก้ไขข้อมูลสมาชิก</li>
+            <li class="breadcrumb-item active">แก้ไขข้อมูลลูกบ้าน</li>
         </ol>
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('แก้ไขข้อมูลสมาชิก') }}</div>
+                    <div class="card-header">{{ __('แก้ไขข้อมูลลูกบ้าน') }}</div>
 
                     <div class="card-body">
                         <form method="POST" action="{{ route('manager_header.store') }}">

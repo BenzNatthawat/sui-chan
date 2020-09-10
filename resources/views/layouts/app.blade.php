@@ -14,11 +14,12 @@
     @include('layouts.meta')
 
     <!-- Scripts -->
-    @yield('scripts')
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <script src="{{ asset('js/app.js') }}"></script>
     <script>
         var oldVersion = jQuery.noConflict();
     </script>
+    @yield('scripts')
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -111,6 +112,36 @@
 
     <!-- Scripts -->
     @yield('scripts_footer')
+
+    <script>
+        $( document ).ready(function() {
+            $("#tel").keyup(function (e){
+                if (e.target.value.length >= 10){
+                    e.target.value = e.target.value.slice(0, 10)
+                }
+            })
+            let first_user_name = 0
+            $("#user_name").keyup(function (e){
+                if(e.target.value) {
+                    if (!(/^[a-zA-Z0-9\s\\\/]+$/.test(e.target.value))) {
+                        $("#user_name").addClass('is-invalid')
+                        if(first_user_name == 0) {
+                            $("#error-user_name").prepend("<strong>กรอกข้อมูล A-Z, a-z, 0-9</strong>")
+                            first_user_name = 1
+                        }
+                    } else {
+                        first_user_name = 0
+                        $("#user_name").removeClass( "is-invalid" );
+                        $("#error-user_name strong").remove()
+                    }
+                } else {
+                    first_user_name = 0
+                    $("#user_name").removeClass( "is-invalid" );
+                    $("#error-user_name strong").remove()
+                }
+            })
+        });
+    </script>
 </body>
 
 </html>

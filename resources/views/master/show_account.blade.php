@@ -42,11 +42,15 @@
                                     </tr>
                                     <tr>
                                         <td>เลขบัตรประชาชน</td>
-                                        <td>{{ $account->cid }}</td>
+                                        <td>{{ $account->cid ? $account->cid : '-' }}</td>
                                     </tr>
                                     <tr>
                                         <td>ชื่อ - สกุล</td>
                                         <td>{{ $account->name }} {{ $account->surname }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>วันเกิด</td>
+                                        <td>{{ $account->dob }}</td>
                                     </tr>
                                     <tr>
                                         <td colspan="2" class="bg-secondary text-center"><b>ที่อยู่</b></td>
@@ -69,7 +73,7 @@
                                     </tr>
                                     <tr>
                                         <td>หมายเหตุ</td>
-                                        <td>{{ $account->comment }}</td>
+                                        <td>{{ $account->comment ? $account->comment : '-' }}</td>
                                     </tr>
                                 </tbody>
                             </table>
