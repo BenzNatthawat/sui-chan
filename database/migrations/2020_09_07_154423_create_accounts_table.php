@@ -17,13 +17,15 @@ class CreateAccountsTable extends Migration
             $table->increments('id');
             $table->string('cid')->nullable();
             $table->string('dob')->nullable();
+            $table->string('prefix');
+            $table->string('sex');
             $table->string('name');
             $table->string('surname');
             $table->string('tel');
             $table->string('party_name')->nullable();
-            $table->string('province')->nullable();
             $table->string('amphoe')->nullable();
             $table->string('district')->nullable();
+            $table->string('province')->nullable();
             $table->string('zipcode')->nullable();
             $table->string('comment')->nullable();
             $table->text('image_cid')->nullable();

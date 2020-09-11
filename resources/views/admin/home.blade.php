@@ -5,6 +5,16 @@
         <div class="row">
             <div class="col-md-12 ">
                 <div class="panel panel-info">
+                    @if (session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col col-xs-6">
@@ -23,9 +33,10 @@
                                 <thead>
                                     <tr>
                                         <th>ชื่อ - สกุล</th>
+                                        <th>เพศ</th>
+                                        <th>ตำบล</th>
+                                        <th>อำเภอ</th>
                                         <th>จังหวัด</th>
-                                        <th>สิทธิการใช้งาน</th>
-                                        <th>สถานะใช้งาน</th>
                                         <th>หมายเหตุ</th>
                                         <th>เครื่องมือ</th>
                                     </tr>
@@ -34,9 +45,10 @@
                                     @forelse ($accounts as $index => $account)
                                         <tr>
                                             <td>{{ $account->name }} {{ $account->surname }}</td>
+                                            <td>{{ $account->sex }}</td>
+                                            <td>{{ $account->amphoe }}</td>
+                                            <td>{{ $account->district }}</td>
                                             <td>{{ $account->province }}</td>
-                                            <td>{{ $account->user ? $account->user->role : '-' }}</td>
-                                            <td>{{ $account->user ? $account->user->status : '-' }}</td>
                                             <td>{{ $account->comment }}</td>
                                             <td>
                                                 <a href="{{ url('admin') }}/{{ $account->id }}" class="btn btn-info btn-sm"><i

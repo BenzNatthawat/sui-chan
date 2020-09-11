@@ -18,6 +18,7 @@
     <script src="{{ asset('js/app.js') }}"></script>
     <script>
         var oldVersion = jQuery.noConflict();
+
     </script>
     @yield('scripts')
 
@@ -27,6 +28,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     @yield('styles')
 </head>
 
@@ -89,7 +91,7 @@
                                     </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                                                                                 document.getElementById('logout-form').submit();">
+                                                                                                                     document.getElementById('logout-form').submit();">
                                         {{ __('ออกจากระบบ') }}
                                     </a>
 
@@ -114,33 +116,39 @@
     @yield('scripts_footer')
 
     <script>
-        $( document ).ready(function() {
-            $("#tel").keyup(function (e){
-                if (e.target.value.length >= 10){
+        $(document).ready(function() {
+            $("#tel").keyup(function(e) {
+                if (e.target.value.length >= 10) {
                     e.target.value = e.target.value.slice(0, 10)
                 }
             })
+            $("#cid").keyup(function(e) {
+                if (e.target.value.length >= 13) {
+                    e.target.value = e.target.value.slice(0, 13)
+                }
+            })
             let first_user_name = 0
-            $("#user_name").keyup(function (e){
-                if(e.target.value) {
+            $("#user_name").keyup(function(e) {
+                if (e.target.value) {
                     if (!(/^[a-zA-Z0-9\s\\\/]+$/.test(e.target.value))) {
                         $("#user_name").addClass('is-invalid')
-                        if(first_user_name == 0) {
+                        if (first_user_name == 0) {
                             $("#error-user_name").prepend("<strong>กรอกข้อมูล A-Z, a-z, 0-9</strong>")
                             first_user_name = 1
                         }
                     } else {
                         first_user_name = 0
-                        $("#user_name").removeClass( "is-invalid" );
+                        $("#user_name").removeClass("is-invalid");
                         $("#error-user_name strong").remove()
                     }
                 } else {
                     first_user_name = 0
-                    $("#user_name").removeClass( "is-invalid" );
+                    $("#user_name").removeClass("is-invalid");
                     $("#error-user_name strong").remove()
                 }
             })
         });
+
     </script>
 </body>
 

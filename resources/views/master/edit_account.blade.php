@@ -82,7 +82,9 @@
                                 <div class="col-md-6">
                                     <label for="dob">{{ __('ว/ด/ป เกิด') }}</label>
 
-                                    <input id="dob" name="dob" class="form-control{{ $errors->has('dob') ? ' is-invalid' : '' }}" type="date" value="{{ old('dob') }}" required>
+                                    <input id="dob" name="dob"
+                                        class="form-control{{ $errors->has('dob') ? ' is-invalid' : '' }}" type="date"
+                                        value="{{ old('dob') }}" required>
 
                                     @if ($errors->has('dob'))
                                         <span class="invalid-feedback" role="alert">
@@ -166,6 +168,14 @@
                                             <strong>{{ $errors->first('zipcode') }}</strong>
                                         </span>
                                     @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <label for="comment">หมายเหตุ</label>
+                                    <textarea class="form-control" id="comment" rows="3"
+                                        name="comment">{{ old('comment') ? old('comment') : $account->comment }}</textarea>
                                 </div>
                             </div>
 

@@ -16,12 +16,29 @@
                     <div class="card-header">{{ __('เก็บข้อมูลลูกบ้าน') }}</div>
 
                     <div class="card-body">
-                        <form action="{{ route('admin.store') }}" method="POST" enctype="multipart/form-data"
-                            id="address" class="demo" autocomplete="off">
+                        <form action="{{ route('admin.store') }}" method="POST" enctype="multipart/form-data" id="address"
+                            class="demo" autocomplete="off">
                             @csrf
 
                             <div class="form-group row">
-                                <div class="col-md-6">
+                                <div class="col-md-2">
+                                    <label for="inputState">คำนำหน้า</label>
+                                    <select id="inputState"
+                                        class="form-control{{ $errors->has('prefix') ? ' is-invalid' : '' }}" name="prefix">
+                                        <option selected>ไม่ระบุ</option>
+                                        <option value="นาย">นาย</option>
+                                        <option value="นาง">นาง</option>
+                                        <option value="นางสาว">นางสาว</option>
+                                    </select>
+
+                                    @if ($errors->has('prefix'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('prefix') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+
+                                <div class="col-md-5">
                                     <label for="name">{{ __('ชื่อ') }}</label>
 
                                     <input id="name" type="text"
@@ -35,7 +52,7 @@
                                     @endif
                                 </div>
 
-                                <div class="col-md-6">
+                                <div class="col-md-5">
                                     <label for="surname">{{ __('นามสกุล') }}</label>
 
                                     <input id="surname" type="text"
@@ -52,9 +69,44 @@
 
                             <div class="form-group row">
                                 <div class="col-md-6">
+                                    <label for="cid">{{ __('เลขบัตรประชาชน') }}</label>
+
+                                    <input id="cid" type="number"
+                                        class="form-control{{ $errors->has('cid') ? ' is-invalid' : '' }}" name="cid"
+                                        value="{{ old('cid') }}" required>
+
+                                    @if ($errors->has('cid'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('cid') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="inputState">เพศ</label>
+                                    <select id="inputState"
+                                        class="form-control{{ $errors->has('sex') ? ' is-invalid' : '' }}" name="sex">
+                                        <option selected>ไม่ระบุ</option>
+                                        <option value="ชาย">ชาย</option>
+                                        <option value="หญิง">หญิง</option>
+                                        <option value="เพศทางเลือก">เพศทางเลือก</option>
+                                    </select>
+
+                                    @if ($errors->has('sex'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('sex') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-md-6">
                                     <label for="dob">{{ __('ว/ด/ป เกิด') }}</label>
 
-                                    <input id="dob" name="dob" class="form-control{{ $errors->has('dob') ? ' is-invalid' : '' }}" type="date" value="{{ old('dob') }}" required>
+                                    <input id="dob" name="dob"
+                                        class="form-control{{ $errors->has('dob') ? ' is-invalid' : '' }}" type="date"
+                                        value="{{ old('dob') }}" required>
 
                                     @if ($errors->has('dob'))
                                         <span class="invalid-feedback" role="alert">
@@ -138,6 +190,13 @@
                                 </div>
                             </div>
 
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <label for="comment">หมายเหตุ</label>
+                                    <textarea class="form-control" id="comment" rows="3" name="comment"></textarea>
+                                </div>
+                            </div>
+
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
@@ -173,5 +232,6 @@
             $province: $('#address [name="province"]'),
             $zipcode: $('#address [name="zipcode"]'),
         });
+
     </script>
 @endsection

@@ -19,7 +19,7 @@ class Account extends Model
      * @var array
      */
     protected $fillable = [
-      'id', 'cid', 'dob', 'name', 'surname', 'tel', 'party_name', 'province',
+      'id', 'cid', 'dob', 'prefix', 'sex', 'name', 'surname', 'tel', 'party_name', 'province',
       'amphoe', 'district', 'comment', 'image_profile', 'image_cid', 'zipcode',
       'user_create_id'
     ];

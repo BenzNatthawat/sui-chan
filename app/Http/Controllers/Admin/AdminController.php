@@ -59,7 +59,7 @@ class AdminController extends Controller
         $auth = Auth::user();
         $request['user_create_id'] = $auth->id;
         $account = Account::create(request()->all());
-        return redirect()->route('admin.index')->with("success","เพิ่มผู้ดูแลระดับตำบลสำเร็จ");
+        return redirect()->route('admin.index')->with("success","เพิ่มลูกบ้านสำเร็จสำเร็จ");
     }
 
     /**
@@ -88,7 +88,7 @@ class AdminController extends Controller
     {
         $account = Account::where('id', $id)->where('user_create_id', Auth::user()->id)->first();
         if(isset($account)) {
-          return view('header.edit_account')->with('account', $account);
+          return view('admin.edit_account')->with('account', $account);
         } else {
           return redirect()->back();
         }
