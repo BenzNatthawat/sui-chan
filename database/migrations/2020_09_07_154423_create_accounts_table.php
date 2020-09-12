@@ -17,8 +17,8 @@ class CreateAccountsTable extends Migration
             $table->increments('id');
             $table->string('cid')->nullable();
             $table->string('dob')->nullable();
-            $table->string('prefix');
-            $table->string('sex');
+            $table->string('prefix')->nullable();
+            $table->string('sex')->nullable();
             $table->string('name');
             $table->string('surname');
             $table->string('tel');
